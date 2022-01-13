@@ -3,7 +3,7 @@ services:
     data-provider:
         image: baelfire/data-provider:latest
         ports:
-            - "80:5000"
+            - "5000:5000"
         volumes:
             - .:/app
         command:

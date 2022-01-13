@@ -12,7 +12,9 @@ cpfdoc_ns = Namespace('cpf', description='CPF related operations')
 cpfsdoc_ns = Namespace(
     'cpfs', description='CPFs related operations')
 
-cpfdoc = cpfdoc_ns.model('CPF', {})
+cpfdoc = cpfdoc_ns.model('CPF', {
+    'cpf': fields.String(required=True, description='CPF'),
+})
 cpfsdoc = cpfsdoc_ns.model('CPFs', {
     'cpfs': fields.List(fields.Nested(cpfdoc))
 })

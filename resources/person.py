@@ -12,7 +12,31 @@ persondoc_ns = Namespace('person', description='Person related operations')
 personsdoc_ns = Namespace(
     'persons', description='Persons related operations')
 
-persondoc = persondoc_ns.model('Person', {})
+persondoc = persondoc_ns.model('Person', {
+    'nome': fields.String(required=True, description='Person name'),
+    'idade': fields.Integer(required=True, description='Person age'),
+    'cpf': fields.String(required=True, description='Person cpf'),
+    'rg': fields.String(required=True, description='Person rg'),
+    'data_nasc': fields.String(required=True, description='Person data_nasc'),
+    'sexo': fields.String(required=True, description='Person sexo'),
+    'signo': fields.String(required=True, description='Person signo'),
+    'mae': fields.String(required=True, description='Person mae'),
+    'pai': fields.String(required=True, description='Person pai'),
+    'email': fields.String(required=True, description='Person email'),
+    'senha': fields.String(required=True, description='Person senha'),
+    'cep': fields.String(required=True, description='Person cep'),
+    'endereco': fields.String(required=True, description='Person endereco'),
+    'numero': fields.String(required=True, description='Person numero'),
+    'bairro': fields.String(required=True, description='Person bairro'),
+    'cidade': fields.String(required=True, description='Person cidade'),
+    'estado': fields.String(required=True, description='Person estado'),
+    'telefone_fixo': fields.String(required=True, description='Person telefone_fixo'),
+    'celular': fields.String(required=True, description='Person celular'),
+    'altura': fields.String(required=True, description='Person altura'),
+    'peso': fields.String(required=True, description='Person peso'),
+    'tipo_sanguineo': fields.String(required=True, description='Person tipo_sanguineo'),
+    'cor': fields.String(required=True, description='Person color'),
+})
 personsdoc = personsdoc_ns.model('Persons', {
     'persons': fields.List(fields.Nested(persondoc))
 })

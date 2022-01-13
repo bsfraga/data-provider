@@ -13,7 +13,22 @@ companydoc_ns = Namespace('company', description='Company related operations')
 companiesdoc_ns = Namespace(
     'companies', description='Companies related operations')
 
-companydoc = companydoc_ns.model('Company', {})
+companydoc = companydoc_ns.model('Company', {
+    'nome': fields.String(required=True, description='Company name'),
+    'cnpj': fields.String(required=True, description='Company cnpj'),
+    'endereco': fields.String(required=True, description='Company endereco'),
+    'numero': fields.String(required=True, description='Company numero'),
+    'bairro': fields.String(required=True, description='Company bairro'),
+    'cidade': fields.String(required=True, description='Company cidade'),
+    'estado': fields.String(required=True, description='Company estado'),
+    'cep': fields.String(required=True, description='Company cep'),
+    'telefone_fixo': fields.String(required=True, description='Company telefone_fixo'),
+    'celular': fields.String(required=True, description='Company celular'),
+    'email': fields.String(required=True, description='Company email'),
+    'site': fields.String(required=True, description='Company site'),
+    'inscricao_estadual': fields.String(required=True, description='Company inscricao_estadual'),
+    'data_abertura': fields.String(required=True, description='Company data_abertura'),
+})
 companiesdoc = companiesdoc_ns.model('Companies', {
     'companies': fields.List(fields.Nested(companydoc))
 })

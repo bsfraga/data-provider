@@ -6,5 +6,4 @@ RUN apt-get update && apt-get install -y \
 EXPOSE 5000
 ADD . /app
 WORKDIR /app
-RUN source venv\bin\activate
 RUN pip install -r requirements.txt

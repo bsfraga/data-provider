@@ -1,7 +1,7 @@
 version: "3"
 services:
     data-provider:
-        build: .
+        image: baelfire/data-provider:latest
         ports:
             - "80:5000"
         volumes:

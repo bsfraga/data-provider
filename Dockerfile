@@ -1,10 +1,10 @@
-FROM ubuntu:20.04
-RUN apt-get update && apt-get install -y \
-    python3.9 \
-    python3-pip \
-    python3-venv \
-    python3-dev
-EXPOSE 5000
-ADD . /app
+from python:latest
+
 WORKDIR /app
+
+COPY . /app
 RUN pip3 install -r requirements.txt
+
+COPY . .
+
+CMD [ "python3 app.py" ] 

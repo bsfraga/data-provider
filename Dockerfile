@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     python3 \
     python3-pip \
-    python3-dev \ 
+    python3-dev
 EXPOSE 5000
 ADD . /app
 WORKDIR /app

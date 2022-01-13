@@ -10,3 +10,4 @@ services:
             - python
             - app.py
         working_dir: /app
+        restart: unless-stopped

@@ -49,7 +49,7 @@ class Person(Resource):
         resp = FourDevs().generate_person()
         if not resp:
             return PersonModel.find_random(), 200
-        person = PersonModel(**resp)  
+        person = PersonModel(**resp[0])  
         person.save()
         return person.json(), 200
 

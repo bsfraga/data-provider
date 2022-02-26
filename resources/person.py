@@ -4,6 +4,7 @@ from flask import request
 from flask_restx import Resource, Namespace, fields
 from models.person import PersonModel
 from services.four_devs import FourDevs
+from schemas.person import PersonSchema
 
 logging.basicConfig(level=logging.DEBUG, format=(
     '%(asctime)s : %(name)s : %(message)s'))
@@ -11,6 +12,9 @@ logging.basicConfig(level=logging.DEBUG, format=(
 persondoc_ns = Namespace('person', description='Person related operations')
 personsdoc_ns = Namespace(
     'persons', description='Persons related operations')
+
+person_schema = PersonSchema()
+persons_schema = PersonSchema(many=True)
 
 persondoc = persondoc_ns.model('Person', {
     'nome': fields.String(required=True, description='Person name'),
@@ -51,7 +55,7 @@ class Person(Resource):
             return PersonModel.find_random(), 200
         person = PersonModel(**resp[0])  
         person.save()
-        return person.json(), 200
+        return person_schema.dump(person), 200
 
 
 class Persons(Resource):
@@ -60,4 +64,4 @@ class Persons(Resource):
     @personsdoc_ns.response(code=200, description='Success', model=personsdoc)
     def get(self):
         persons = PersonModel.query.all()
-        return {'persons': [person.json() for person in persons]}, 200
+        return {'persons': persons_schema.dump(persons)}, 200

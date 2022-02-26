@@ -1,3 +1,4 @@
+from pprint import pprint
 import requests
 
 class FourDevs:
@@ -39,4 +40,18 @@ class FourDevs:
 
         return response.text
 
-    
+    def generate_lorem_ipsum(self, quantity, options):
+        url = "https://www.4devs.com.br/ferramentas_online.php"
+
+        if options == "words":
+            options = "pala"
+        elif options == "paragraph":
+            options = "para"
+
+        payload = f"acao=gerar_textos&txt_quantidade={quantity}&opcoes={options}&tipo_texto=texto&iniciar=N"
+        headers = {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+        return response.text

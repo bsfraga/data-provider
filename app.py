@@ -4,6 +4,7 @@ from marshmallow import ValidationError
 from resources.company import Company, Companies, companydoc_ns, companiesdoc_ns
 from resources.person import Person, Persons, persondoc_ns, personsdoc_ns
 from resources.cpf import CPF, CPFs, cpfdoc_ns, cpfsdoc_ns
+from resources.lorem_ipsum import LoremIpsum, loremdoc_ns
 from ma import ma
 from sql_alchemy import db
 
@@ -37,6 +38,7 @@ api.add_namespace(persondoc_ns)
 api.add_namespace(personsdoc_ns)
 api.add_namespace(cpfdoc_ns)
 api.add_namespace(cpfsdoc_ns)
+api.add_namespace(loremdoc_ns)
 
 
 companydoc_ns.add_resource(Company, '', methods=['GET'])
@@ -45,7 +47,7 @@ persondoc_ns.add_resource(Person, '', methods=['GET'])
 personsdoc_ns.add_resource(Persons, '', methods=['GET'])
 cpfdoc_ns.add_resource(CPF, '', methods=['GET'])
 cpfsdoc_ns.add_resource(CPFs, '', methods=['GET'])
-
+loremdoc_ns.add_resource(LoremIpsum, '', methods=['GET'])
 
 if __name__ == '__main__':
     app.run(debug=True)

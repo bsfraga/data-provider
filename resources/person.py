@@ -55,7 +55,7 @@ class Person(Resource):
             return PersonModel.find_random(), 200
         person = PersonModel(**resp[0])  
         person.save()
-        return {'person': person_schema.dump(person)}, 200
+        return person_schema.dump(person), 200
 
 
 class Persons(Resource):

@@ -5,7 +5,7 @@ from resources.company import Company, Companies, companydoc_ns, companiesdoc_ns
 from resources.person import Person, Persons, persondoc_ns, personsdoc_ns
 from resources.cpf import CPF, CPFs, cpfdoc_ns, cpfsdoc_ns
 from resources.lorem_ipsum import LoremIpsum, loremdoc_ns
-from ma import ma
+from resources.validations import ValidateCPF, ValidateCNPJ, ValidateCNH, ValidateCreditCardNumber, validationsdoc_ns
 from sql_alchemy import db
 
 app = Flask(__name__)
@@ -39,6 +39,7 @@ api.add_namespace(personsdoc_ns)
 api.add_namespace(cpfdoc_ns)
 api.add_namespace(cpfsdoc_ns)
 api.add_namespace(loremdoc_ns)
+api.add_namespace(validationsdoc_ns)
 
 
 companydoc_ns.add_resource(Company, '', methods=['GET'])
@@ -48,6 +49,11 @@ personsdoc_ns.add_resource(Persons, '', methods=['GET'])
 cpfdoc_ns.add_resource(CPF, '', methods=['GET'])
 cpfsdoc_ns.add_resource(CPFs, '', methods=['GET'])
 loremdoc_ns.add_resource(LoremIpsum, '', methods=['GET'])
+
+validationsdoc_ns.add_resource(ValidateCPF, '/cpf', methods=['GET'])
+validationsdoc_ns.add_resource(ValidateCNPJ, '/cnpj', methods=['GET'])
+validationsdoc_ns.add_resource(ValidateCNH, '/cnh', methods=['GET'])
+validationsdoc_ns.add_resource(ValidateCreditCardNumber, '/credit_card_number', methods=['GET'])
 
 if __name__ == '__main__':
     app.run(debug=True)

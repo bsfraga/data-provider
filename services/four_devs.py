@@ -55,3 +55,55 @@ class FourDevs:
 
         response = requests.request("POST", url, headers=headers, data=payload)
         return response.text
+
+    def validate_cpf(self, cpf):
+        url = "https://www.4devs.com.br/ferramentas_online.php"
+
+        payload = f"acao=validar_cpf&txt_cpf={cpf}"
+        headers = {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+        if 'Falso' in response.text:
+            return False
+        return True
+    
+    def validate_cnpj(self, cnpj):
+        url = "https://www.4devs.com.br/ferramentas_online.php"
+
+        payload = f"acao=validar_cnpj&txt_cnpj={cnpj}"
+        headers = {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+        if 'Falso' in response.text:
+            return False
+        return True
+
+    def validate_cnh(self, cnh):
+        url = "https://www.4devs.com.br/ferramentas_online.php"
+
+        payload = f"acao=validar_cnh&txt_cnh={cnh}"
+        headers = {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+        if 'Falso' in response.text:
+            return False
+        return True
+
+    def validate_credit_card_number(self, credit_card_number, flag):
+        url = "https://www.4devs.com.br/ferramentas_online.php"
+
+        payload = f"acao=validar_cc&txt_cc={credit_card_number}&bandeira={flag}"
+        headers = {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+        if 'Falso' in response.text:
+            return False
+        return True

@@ -41,6 +41,8 @@ class Company(Resource):
     def get(self):
         resp = FourDevs().generate_company()
         content = BeautifulSoupParser.parseHtml(resp)
+        if not content or len(content) == 0:
+            return CompanyModel.find_random(), 200
         company = CompanyModel(**content)  
         company.save()
         return company.json(), 200

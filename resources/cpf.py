@@ -26,6 +26,8 @@ class CPF(Resource):
     @cpfdoc_ns.response(code=200, description='Success', model=cpfdoc)
     def get(self):
         resp = FourDevs().generate_cpf()
+        if not resp or len(resp) == 0:
+            return CPFModel.find_random(), 200
         cpf = CPFModel(resp)
         cpf.save()
         return cpf.json(), 200

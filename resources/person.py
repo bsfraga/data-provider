@@ -1,5 +1,6 @@
 import json
 import logging
+import traceback
 
 from flask import request
 from flask_restx import Namespace, Resource, fields
@@ -52,14 +53,20 @@ class Person(Resource):
     @persondoc_ns.doc('get person')
     @persondoc_ns.response(code=200, description='Success', model=persondoc)
     def get(self):
-        resp = FourDevs().generate_person()
-        if not resp or len(resp) == 0:
-            logging.warning('No person found. Retrieving from database.')
-            return PersonModel.find_random(), 200
-        person = PersonModel(**resp[0])
-        person.save()
-        return person_schema.dump(person), 200
 
+        try:
+            resp = FourDevs().generate_person()
+            if not resp or len(resp) == 0:
+                logging.warning('No person found. Retrieving from database.')
+                return PersonModel.find_random(), 200
+            person = PersonModel(**resp[0])
+            person.save()
+            return person_schema.dump(person), 200
+        except Exception as e:
+            logging.error('Error getting person.')
+            logging.error(resp)
+            logging.error(traceback.format_exc())
+            return PersonModel.find_random(), 200
 
 class Persons(Resource):
 

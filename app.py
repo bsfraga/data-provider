@@ -17,7 +17,7 @@ api = Api(blueprint, doc='/doc/', version='1.0', title='Data Provider',
 app.register_blueprint(blueprint)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://data-provider:Ab102030!@aws-storages.duckdns.org:3306/data_provider'
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
 db.init_app(app)

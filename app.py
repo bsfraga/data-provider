@@ -1,11 +1,14 @@
 from flask import Blueprint, Flask, jsonify
 from flask_restx import Api
 from marshmallow import ValidationError
-from resources.company import Company, Companies, companydoc_ns, companiesdoc_ns
-from resources.person import Person, Persons, persondoc_ns, personsdoc_ns
+
+from resources.company import (Companies, Company, companiesdoc_ns,
+                               companydoc_ns)
 from resources.cpf import CPF, CPFs, cpfdoc_ns, cpfsdoc_ns
 from resources.lorem_ipsum import LoremIpsum, loremdoc_ns
-from resources.validations import ValidateCPF, ValidateCNPJ, ValidateCNH, ValidateCreditCardNumber, validationsdoc_ns
+from resources.person import Person, Persons, persondoc_ns, personsdoc_ns
+from resources.validations import (ValidateCNH, ValidateCNPJ, ValidateCPF,
+                                   ValidateCreditCardNumber, validationsdoc_ns)
 from sql_alchemy import db
 
 app = Flask(__name__)
@@ -32,6 +35,7 @@ def create_tables():
 def handle_marshmallow_validation(e):
     return jsonify({'error': e.messages}), 400
 
+
 api.add_namespace(companydoc_ns)
 api.add_namespace(companiesdoc_ns)
 api.add_namespace(persondoc_ns)
@@ -53,7 +57,8 @@ loremdoc_ns.add_resource(LoremIpsum, '', methods=['GET'])
 validationsdoc_ns.add_resource(ValidateCPF, '/cpf', methods=['GET'])
 validationsdoc_ns.add_resource(ValidateCNPJ, '/cnpj', methods=['GET'])
 validationsdoc_ns.add_resource(ValidateCNH, '/cnh', methods=['GET'])
-validationsdoc_ns.add_resource(ValidateCreditCardNumber, '/credit_card_number', methods=['GET'])
+validationsdoc_ns.add_resource(
+    ValidateCreditCardNumber, '/credit_card_number', methods=['GET'])
 
 if __name__ == '__main__':
     app.run(debug=True)

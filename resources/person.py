@@ -1,10 +1,11 @@
-import logging
 import json
+import logging
+
 from flask import request
-from flask_restx import Resource, Namespace, fields
+from flask_restx import Namespace, Resource, fields
 from models.person import PersonModel
-from services.four_devs import FourDevs
 from schemas.person import PersonSchema
+from services.four_devs import FourDevs
 
 logging.basicConfig(level=logging.DEBUG, format=(
     '%(asctime)s : %(name)s : %(message)s'))
@@ -45,6 +46,7 @@ personsdoc = personsdoc_ns.model('Persons', {
     'persons': fields.List(fields.Nested(persondoc))
 })
 
+
 class Person(Resource):
 
     @persondoc_ns.doc('get person')
@@ -52,8 +54,9 @@ class Person(Resource):
     def get(self):
         resp = FourDevs().generate_person()
         if not resp or len(resp) == 0:
+            logging.warning('No person found. Retrieving from database.')
             return PersonModel.find_random(), 200
-        person = PersonModel(**resp[0])  
+        person = PersonModel(**resp[0])
         person.save()
         return person_schema.dump(person), 200
 

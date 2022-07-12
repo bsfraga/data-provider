@@ -51,7 +51,7 @@ class Person(Resource):
     @persondoc_ns.response(code=200, description='Success', model=persondoc)
     def get(self):
         resp = FourDevs().generate_person()
-        if not resp:
+        if not resp or len(resp) == 0:
             return PersonModel.find_random(), 200
         person = PersonModel(**resp[0])  
         person.save()

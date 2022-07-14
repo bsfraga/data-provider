@@ -66,3 +66,9 @@ class CompanyModel(db.Model):
     @classmethod
     def find_all(cls):
         return cls.query.all()
+
+    @classmethod
+    def delete(cls, name):
+        company = cls.query.filter_by(nome=name).first()
+        db.session.delete(company)
+        db.session.commit()

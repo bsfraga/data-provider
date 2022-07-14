@@ -92,3 +92,8 @@ class PersonModel(db.Model):
     @classmethod
     def find_all(cls):
         return cls.query.all()
+
+    @classmethod
+    def delete(cls, nome):
+        cls.query.filter_by(nome=nome).delete()
+        db.session.commit()

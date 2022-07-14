@@ -39,13 +39,21 @@ class Company(Resource):
     @companydoc_ns.doc('get company')
     @companydoc_ns.response(code=200, description='Success', model=companydoc)
     def get(self):
-        resp = FourDevs().generate_company()
-        content = BeautifulSoupParser.parseHtml(resp)
-        if not content or len(content) == 0:
-            return CompanyModel.find_random(), 200
-        company = CompanyModel(**content)  
-        company.save()
-        return company.json(), 200
+        try:
+            resp = FourDevs().generate_company()
+            content = BeautifulSoupParser.parseHtml(resp)
+            if not content or len(content) == 0:
+                company = CompanyModel.find_random(), 200
+                if company:
+                    CompanyModel.delete(company[0].nome)
+                    return company[0].json(), 200
+                else:
+                    return {'message': 'No companies found'}, 404
+            company = CompanyModel(**content)  
+            return company.json(), 200
+        except Exception as e:
+            logging.error(e)
+            return {'message': 'An error occurred'}, 500
 
 
 class Companies(Resource):

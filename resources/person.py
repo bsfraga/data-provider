@@ -58,9 +58,13 @@ class Person(Resource):
             resp = FourDevs().generate_person()
             if not resp or len(resp) == 0:
                 logging.warning('No person found. Retrieving from database.')
-                return PersonModel.find_random(), 200
+                person = PersonModel.find_random()
+                if person:
+                    PersonModel.delete(person['nome'])
+                    return person_schema.dump(person)
+                else:
+                    return {'message': 'No person found.'}, 404
             person = PersonModel(**resp[0])
-            person.save()
             return person_schema.dump(person), 200
         except Exception as e:
             logging.error('Error getting person.')
